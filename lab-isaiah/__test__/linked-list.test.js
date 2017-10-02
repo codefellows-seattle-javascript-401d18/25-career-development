@@ -1,12 +1,12 @@
 'use strict';
 
-const SLL = require('../lib/sll');
+const TreeNode = require('../lib/sll');
 require('jest');
 
 describe('Testing Singly Linked List', function() {
   describe('default properties', () => {
     beforeAll(done => {
-      this.sll = new SLL();
+      this.sll = new TreeNode();
       done();
     });
     test('should have a head property of null', () => {
@@ -17,7 +17,7 @@ describe('Testing Singly Linked List', function() {
 
   describe('#prepend', () => {
     beforeAll(done => {
-      this.sll = new SLL();
+      this.sll = new TreeNode();
       done();
     });
     describe('add a new node to the head of the list', () => {
@@ -37,7 +37,7 @@ describe('Testing Singly Linked List', function() {
 
   describe('#append', () => {
     beforeAll(done => {
-      this.sll = new SLL();
+      this.sll = new TreeNode();
       done();
     });
     test('add a node to the tail of the list', () => {
@@ -50,7 +50,7 @@ describe('Testing Singly Linked List', function() {
 
   describe('#reverse', () => {
     beforeAll(done => {
-      this.sll = new SLL();
+      this.sll = new TreeNode();
       done();
     });
     test('reverse the order', () => {
@@ -86,7 +86,7 @@ describe('Testing Singly Linked List', function() {
 
   describe('#removeNthNode', () => {
     beforeAll(done => {
-      this.sll = new SLL();
+      this.sll = new TreeNode();
       this.sll.append(1);
       this.sll.append(2);
       this.sll.append(3);
