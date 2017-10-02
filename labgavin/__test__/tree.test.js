@@ -26,6 +26,10 @@ describe('Tree constructor methods', () => {
     describe('#PRUNE', () => {
       test('should remove child from a node', () => {
         let testTree3 = new TreeNode('body', 'header, main, footer');
+        let testTreeh = new TreeNode('header', 'H2, nav');
+        let testTreem = new TreeNode('main', 'section');
+        let testTreef = new TreeNode('footer', 'p');
+        testTree3.children = [testTreeh, testTreem, testTreef];
         testTree3.prune('header');
         expect(testTree3.children.length).toBe(2);
       });
