@@ -15,5 +15,10 @@
 //           }
 //         }
 //       ```
+const readWrite = require('./lib/read-write');
+// const transform = require('./lib/transform');
 
-const fs = require('fs');
+//not sure where this goes, and I have not created a functionality for a string yet
+parser = new DOMParser();
+doc = parser.parseFromString(stringContainingHTMLSource, "text/html");
+// returns a HTMLDocument, which also is a Document.
