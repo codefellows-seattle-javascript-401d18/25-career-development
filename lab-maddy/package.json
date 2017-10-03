@@ -1,0 +1,23 @@
+{
+  "name": "lab-madeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+
+  },
+  "keywords": [],
+  "author": "maddy",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^0.28.7",
+    "node-sass": "^4.5.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.2.2",
+    "sass-loader": "^6.0.6",
+    "superagent": "^3.6.0",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2"
+  }
+}
