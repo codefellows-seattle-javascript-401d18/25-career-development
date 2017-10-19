@@ -26,10 +26,14 @@ describe('Tree constructor method', function () {
     });
     describe('#Prune', () => {
       test('should remove child from given node', () => {
-        
-
+        let testTree3 = new treeNodeTest('body', 'header, main, footer');
+        let testTreeS = new treeNodeTest('header', 'H2, nav');
+        let testTreeH = new treeNodeTest('main', 'section');
+        let testTreeA = new treeNodeTest('footer', 'p');
+        testTree3.children = [testTreeS, testTreeH, testTreeA];
+        testTree3.prune('header')
+        expect(testTree3.children.length).toBe(2);
       });
-    })
-
+    });
   });
 });
