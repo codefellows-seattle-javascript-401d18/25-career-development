@@ -1,56 +1,55 @@
-const TreeNode = module.exports = class {
-  constructor(val) {
-    this.val = val;
-    this.children = []''
-  }
+'use strict';
 
-  breadthFirst(callback) {
-    let q = [this];
-    let current;
+// const fs = require('fs');
+const Promise = require('bluebird');
+const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
+const Tree = require('./tree.js');
+const Stack = require('./stacks.js');
 
-    while(q.length) {
-      current = q.shift();
-      if(callback) callback(current);
-      if(current.children.length) q = [...q, ...current.children];
-    }
-  }
+let filePath = `${__dirname}/../assets/stretch.html`;
 
-  preOrder(callback) {
-    _walk(this) // => the root
+let arrElements = ['this', 'is', 'an', 'array'];
 
-    function _walk(node) {
-      callback(node);
-      node.children.forEach(_walk);
-    }
-  }
-
-  postOrder(callback){
-    _walk(this)
-
-    function _walk(node) {
-      node.children.forEach(_walk);
-      callback(node);
-    }
-  }
-
-  insert(newNode, parentVal) {
-    if(!newNode instanceof TreeNode) throw new Error('must be a valid TreeNode');
-
-    this.preOrder(node => {
-      if(!node) return;
-
-      if(node.val === parentVal) node.children.push(newNode);
-      return this;
-    })
-  }
-
-  prune(val) {
-    this.breadthFirst(node => {
-      if(!node) return
-      node.children = node.children.filter(child => child.val !== val);
-    })
-  }
-  remove(val) {
-    
-  }
+function parserHtml(filePath){
+  fs.readFileProm(filePath)
+    .then(fileBuff => {
+      arrElements = fileBuff.toString().replace(/\s+/g, '').split('>');
+      tagChecker(arrElements[0])
+        .then(buildTree(new Tree(), arrElements)
+          .then(tree => {
+            console.log(tree);
+            return tree;
+          })
+          .catch(
+            err => {
+              if(err !== '!DOCTYPEhtml') {
+                throw new Error('This is not an HTML document');
+              }
+            })
+        );
+    });
 }
+
+function buildTree(tree, arr) {
+  return new Promise((resolve, reject) => {
+    let stack = new Stack;
+    arr.map(ele => tagChecker(ele)
+      .then(tag => console.log(tag))
+      .catch(close => console.log(close))
+    );
+    resolve('This will be the returned tree');
+  });
+}
+
+function tagChecker(str) {
+  return new Promise((resolve, reject) => {
+    let checkTag = str.split('');
+    if(checkTag[0] === '<' && checkTag[1] !== '/') {
+      checkTag.shift();
+      checkTag = checkTag.join('');
+      resolve(checkTag);
+    } else reject(checkTag.join(''));
+  });
+}
+
+parserHtml(filePath);
