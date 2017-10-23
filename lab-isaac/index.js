@@ -3,10 +3,10 @@
 // const fs = require('fs');
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'), {suffix: 'Prom'});
-const Tree = require('./tree.js');
-const Stack = require('./stacks.js');
+const Tree = require('./lib/tree.js');
+const Stack = require('./lib/stacks.js');
 
-let filePath = `${__dirname}/../assets/stretch.html`;
+let filePath = `${__dirname}/../assets/minimal.html`;
 
 let arrElements = ['this', 'is', 'an', 'array'];
 
@@ -34,10 +34,29 @@ function buildTree(tree, arr) {
   return new Promise((resolve, reject) => {
     let stack = new Stack;
     arr.map(ele => tagChecker(ele)
-      .then(tag => console.log(tag))
+      .then(tag => {
+        if(!tree.val) {
+          tree.val = {
+            eleName: tag,
+            textContent: '',
+          };
+          stack.push(tag);
+          console.log(stack.peek());
+        } else {
+          tree.insert(
+            new Tree({
+              eleName: tag,
+              textContent: '',
+            }),
+            tree.val
+          );
+          stack.push(tag);
+          console.log('stack ', stack.peek());
+        }
+      })
       .catch(close => console.log(close))
     );
-    resolve('This will be the returned tree');
+    resolve(tree);
   });
 }
 
