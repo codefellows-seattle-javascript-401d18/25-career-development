@@ -1,7 +1,3 @@
-# Lab 24 Learning the Front End Part 3
-
-
-## Using the App
-
-
-### Installing the App
+# Lab 25 Learning the Front End Part 3
+  Now with Trees!!!  
+  

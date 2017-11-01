@@ -1,12 +1,13 @@
 const TreeNode = module.exports = class {
-  constructor(val) {
-    this.val = val;
+  constructor(name, content) {
+    this.val = {eleName: name, textContent: content};
     this.children = [];
   }
 
   breadthFirst(cb) {
     let q = [this];
     let current;
+
     while(q.length) {
       current = q.shift();
       if(cb) cb(current);
@@ -31,22 +32,22 @@ const TreeNode = module.exports = class {
       cb(node);
     }
   }
+
   insert(newNode, parentVal) {
-    if(newNode instanceof TreeNode) throw new Error('must be a valid tree node');
+    if(newNode instanceof TreeNode) throw new Error('must be a valid Tree Node');
 
     this.preOrder(node => {
       if(!node) return;
 
-      if(node.val === parentVal);
-      node.children.push(newNode);
+      if(node.val === parentVal) node.children.push(newNode);
       return this;
     });
   }
 
   prune(val) {
     this.breadthFirst(node => {
-      if(!node) return
-      node.children = node.children.filter(child => child.val !==val);
+      if(!node) return;
+      node.children = node.children.filter(child => child.val !== val);
     });
   }
-}
+};
